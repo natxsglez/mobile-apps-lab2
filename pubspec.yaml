@@ -21,6 +21,14 @@ dependencies:
   avatar_glow:
   permission_handler: ^9.2.0
   http:
+  flutter_bloc: ^8.1.1
+  bloc: ^8.1.0
+  firebase_auth: 4.1.1
+  firebase_core: 2.1.1
+  google_sign_in: 5.4.2
+  cloud_firestore: 4.0.4
+  flutterfire_ui: 0.4.3+19
+  firebase_storage: 11.0.4
 
 dev_dependencies:
   flutter_test:

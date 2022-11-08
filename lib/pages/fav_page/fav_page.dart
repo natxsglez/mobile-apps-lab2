@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:birds_museum/pages/fav_page/fav_list.dart';
-import 'package:birds_museum/providers/favorites/fav_provider.dart';
+import 'package:birds_museum/bloc/bloc/fav_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

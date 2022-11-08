@@ -1,5 +1,5 @@
 import 'package:birds_museum/pages/fav_page/fav_item.dart';
-import 'package:birds_museum/providers/favorites/fav_provider.dart';
+import 'package:birds_museum/bloc/bloc/fav_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

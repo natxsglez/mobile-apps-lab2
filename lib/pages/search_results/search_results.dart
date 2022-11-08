@@ -4,7 +4,7 @@ import 'package:birds_museum/pages/search_results/platforms_list.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../providers/favorites/fav_provider.dart';
+import '../../bloc/bloc/fav_provider.dart';
 
 class SearchResults extends StatefulWidget {
   final songData;

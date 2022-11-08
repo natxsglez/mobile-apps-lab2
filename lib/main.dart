@@ -1,7 +1,7 @@
 import 'package:birds_museum/pages/home_page/home_page.dart';
-import 'package:birds_museum/providers/favorites/fav_provider.dart';
-import 'package:birds_museum/providers/recognize_song/recognize_song_provider.dart';
-import 'package:birds_museum/providers/recorder/recorder_provider.dart';
+import 'package:birds_museum/bloc/bloc/fav_provider.dart';
+import 'package:birds_museum/bloc/bloc/recognize_song_provider.dart';
+import 'package:birds_museum/bloc/record/recorder_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:permission_handler/permission_handler.dart';
