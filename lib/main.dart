@@ -1,41 +1,47 @@
+import 'package:birds_museum/bloc/auth_bloc/auth_bloc.dart';
+import 'package:birds_museum/bloc/auth_bloc/auth_repository.dart';
+import 'package:birds_museum/bloc/favorites_bloc/favorites_bloc.dart';
+import 'package:birds_museum/bloc/favorites_bloc/favorites_repository.dart';
+import 'package:birds_museum/bloc/recognize_song_bloc/recognize_song_bloc.dart';
+import 'package:birds_museum/bloc/recognize_song_bloc/recognize_song_repository.dart';
+import 'package:birds_museum/bloc/record_bloc/record_bloc.dart';
+import 'package:birds_museum/bloc/record_bloc/record_repository.dart';
+import 'package:birds_museum/models/user_model.dart';
 import 'package:birds_museum/pages/home_page/home_page.dart';
-import 'package:birds_museum/bloc/bloc/fav_provider.dart';
-import 'package:birds_museum/bloc/bloc/recognize_song_provider.dart';
-import 'package:birds_museum/bloc/record/recorder_provider.dart';
+import 'package:birds_museum/pages/login_page/login_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:permission_handler/permission_handler.dart';
-
-Future<bool> requestPermission(Permission permission) async {
-  if (await permission.isGranted) {
-    return true;
-  } else {
-    var result = await permission.request();
-    if (result == PermissionStatus.granted) {
-      return true;
-    }
-  }
-  return false;
-}
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  runApp(MultiProvider(
-    providers: [
-      ChangeNotifierProvider(
-        create: (_) => FavoritesProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => RecorderProvider(),
-      ),
-      ChangeNotifierProvider(
-        create: (_) => RecognizeSongProvider(),
-      )
-    ],
-    child: const MyApp(),
-  ));
-  await requestPermission(Permission.storage);
-  await requestPermission(Permission.microphone);
+  await Firebase.initializeApp();
+  runApp(MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider(create: (context) => AuthRepository()),
+        RepositoryProvider(create: (context) => FavoritesRepository()),
+        RepositoryProvider(create: (context) => RecognizeSongRepository()),
+        RepositoryProvider(create: (context) => RecordRepository())
+      ],
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+              create: (context) =>
+                  AuthBloc(authRepository: context.read<AuthRepository>())
+                    ..add(AuthCheckLoginStatusEvent())),
+          BlocProvider(
+              create: (BuildContext context) => FavoritesBloc(
+                  favoritesRepository: context.read<FavoritesRepository>())),
+          BlocProvider(
+              create: (BuildContext context) => RecognizeSongBloc(
+                  recognizeSongRepository:
+                      context.read<RecognizeSongRepository>())),
+          BlocProvider(
+              create: (BuildContext context) => RecordBloc(
+                  recordRepository: context.read<RecordRepository>()))
+        ],
+        child: const MyApp(),
+      )));
 }
 
 class MyApp extends StatelessWidget {
@@ -44,6 +50,34 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        theme: ThemeData.dark(), title: 'Material App', home: const HomePage());
+        theme: ThemeData.dark(),
+        title: 'Material App',
+        home: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthLoggedInState) {
+              final UserModel? userLogged =
+                  BlocProvider.of<AuthBloc>(context).currUser;
+              if (userLogged == null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      "Inicia sesión para usar la app",
+                    ),
+                  ),
+                );
+              }
+            }
+          },
+          builder: (context, state) {
+            if (state is AuthLoggedInState) {
+              final UserModel? userLogged =
+                  BlocProvider.of<AuthBloc>(context).currUser;
+              if (userLogged == null) {
+                return const LoginPage();
+              }
+            }
+            return const HomePage();
+          },
+        ));
   }
 }

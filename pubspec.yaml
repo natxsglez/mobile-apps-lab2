@@ -29,6 +29,7 @@ dependencies:
   cloud_firestore: 4.0.4
   flutterfire_ui: 0.4.3+19
   firebase_storage: 11.0.4
+  equatable:
 
 dev_dependencies:
   flutter_test:

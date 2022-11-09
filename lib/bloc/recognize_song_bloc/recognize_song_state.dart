@@ -1,6 +1,18 @@
 part of 'recognize_song_bloc.dart';
 
-@immutable
-abstract class RecognizeSongState {}
+abstract class RecognizeSongState extends Equatable {
+  const RecognizeSongState();
 
-class RecognizeSongInitial extends RecognizeSongState {}
+  @override
+  List<Object> get props => [];
+}
+
+class RecognizeSongInitialState extends RecognizeSongState {}
+
+class StartRecognizingSongState extends RecognizeSongState {}
+
+class RecognizingSongState extends RecognizeSongState {}
+
+class RecognizeSongErrorState extends RecognizeSongState {}
+
+class RecognizeSongSuccessfulState extends RecognizeSongState {}

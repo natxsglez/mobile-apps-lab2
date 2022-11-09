@@ -1,13 +1,32 @@
+import 'dart:async';
+
+import 'package:birds_museum/bloc/recognize_song_bloc/recognize_song_repository.dart';
+import 'package:birds_museum/models/song_model.dart';
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
+import 'package:equatable/equatable.dart';
 
 part 'recognize_song_event.dart';
 part 'recognize_song_state.dart';
 
 class RecognizeSongBloc extends Bloc<RecognizeSongEvent, RecognizeSongState> {
-  RecognizeSongBloc() : super(RecognizeSongInitial()) {
+  final RecognizeSongRepository _recognizeSongRepository;
+  SongModel? _song;
+  SongModel? get song => _song;
+
+  RecognizeSongBloc({required recognizeSongRepository})
+      : _recognizeSongRepository = recognizeSongRepository,
+        super(RecognizeSongInitialState()) {
     on<RecognizeSongEvent>((event, emit) {
-      // TODO: implement event handler
+      on<DoRecognizeSongEvent>(_recognizeSongHandler);
     });
+  }
+
+  FutureOr<void> _recognizeSongHandler(event, emit) async {
+    try {
+      _song = await _recognizeSongRepository.recognizeSong(event.songPath);
+      emit(RecognizeSongSuccessfulState());
+    } catch (error) {
+      emit(RecognizeSongErrorState());
+    }
   }
 }
