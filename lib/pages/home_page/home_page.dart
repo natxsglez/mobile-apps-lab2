@@ -1,20 +1,13 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 import 'package:birds_museum/pages/fav_page/fav_page.dart';
 import 'package:birds_museum/pages/search_results/search_results.dart';
-import 'package:birds_museum/bloc/bloc/recognize_song_provider.dart';
-import 'package:birds_museum/bloc/record/recorder_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:avatar_glow/avatar_glow.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
