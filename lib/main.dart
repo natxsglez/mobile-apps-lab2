@@ -1,16 +1,17 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:birds_museum/bloc/auth_bloc/auth_bloc.dart';
 import 'package:birds_museum/bloc/auth_bloc/auth_repository.dart';
 import 'package:birds_museum/bloc/favorites_bloc/favorites_bloc.dart';
 import 'package:birds_museum/bloc/favorites_bloc/favorites_repository.dart';
 import 'package:birds_museum/bloc/recognize_song_bloc/recognize_song_bloc.dart';
 import 'package:birds_museum/bloc/recognize_song_bloc/recognize_song_repository.dart';
-import 'package:birds_museum/bloc/record_bloc/record_bloc.dart';
-import 'package:birds_museum/bloc/record_bloc/record_repository.dart';
+import 'package:birds_museum/bloc/record/record_bloc.dart';
+import 'package:birds_museum/bloc/record/record_repository.dart';
 import 'package:birds_museum/models/user_model.dart';
 import 'package:birds_museum/pages/home_page/home_page.dart';
 import 'package:birds_museum/pages/login_page/login_page.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 Future main() async {
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData.dark(),
         title: 'Material App',
+        debugShowCheckedModeBanner: false,
         home: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthLoggedInState) {

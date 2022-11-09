@@ -1,12 +1,13 @@
+import 'package:birds_museum/bloc/auth_bloc/auth_bloc.dart';
+import 'package:birds_museum/bloc/favorites_bloc/favorites_bloc.dart';
+import 'package:birds_museum/models/song_model.dart';
 import 'package:birds_museum/pages/search_results/search_results.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import '../../bloc/bloc/fav_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavoriteItem extends StatelessWidget {
-  final favItem;
-  const FavoriteItem({super.key, this.favItem});
+  final SongModel favItem;
+  const FavoriteItem({super.key, required this.favItem});
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +55,11 @@ class FavoriteItem extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                "${favItem["result"]["title"]}",
+                favItem.songName,
                 style:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              Text("${favItem["result"]["artist"]}")
+              Text(favItem.artist)
             ],
           ),
         ),
@@ -92,7 +93,9 @@ class FavoriteItem extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            context.read<FavoritesProvider>().removeSong(favItem);
+            BlocProvider.of<FavoritesBloc>(context).add(RemoveFavoriteEvent(
+                songToRemove: favItem,
+                uid: BlocProvider.of<AuthBloc>(context).currUser!.uid));
             Navigator.of(context).pop();
           },
           child: const Text("Eliminar"),
@@ -108,7 +111,7 @@ class FavoriteItem extends StatelessWidget {
           height: 300,
           width: 300,
           alignment: Alignment.center,
-          "${favItem["result"]["spotify"]["album"]["images"][1]["url"]}"),
+          favItem.songImage),
     );
   }
 }

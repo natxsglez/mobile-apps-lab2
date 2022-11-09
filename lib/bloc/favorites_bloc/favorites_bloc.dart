@@ -20,7 +20,21 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     });
   }
 
-  FutureOr<void> _addSongHandler(event, emit) async {}
+  FutureOr<void> _addSongHandler(event, emit) async {
+    try {
+      await _favoritesRepository.addSong(event.song, event.uid);
+      emit(AddFavoriteSuccessState());
+    } catch (error) {
+      emit(AddFavoriteErrorState());
+    }
+  }
 
-  FutureOr<void> _removeSongHandler(event, emit) async {}
+  FutureOr<void> _removeSongHandler(event, emit) async {
+    try {
+      await _favoritesRepository.removeSong(event.song, event.uid);
+      emit(RemoveFavoriteSuccessState());
+    } catch (error) {
+      emit(RemoveFavoriteErrorState());
+    }
+  }
 }

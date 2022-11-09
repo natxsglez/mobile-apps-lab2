@@ -1,25 +1,14 @@
-// ignore_for_file: prefer_typing_uninitialized_variables, no_logic_in_create_state
-
+import 'package:birds_museum/bloc/auth_bloc/auth_bloc.dart';
+import 'package:birds_museum/bloc/favorites_bloc/favorites_bloc.dart';
+import 'package:birds_museum/models/song_model.dart';
 import 'package:birds_museum/pages/search_results/platforms_list.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/bloc/fav_provider.dart';
-
-class SearchResults extends StatefulWidget {
-  final songData;
-  final bool isLikedSong;
-  const SearchResults({super.key, this.songData, required this.isLikedSong});
-
-  @override
-  State<SearchResults> createState() =>
-      _SearchResultsState(songData, isLikedSong);
-}
-
-class _SearchResultsState extends State<SearchResults> {
-  final Map<dynamic, dynamic> _songData;
-  bool _isLikedSong;
-  _SearchResultsState(this._songData, this._isLikedSong);
+class SearchResults extends StatelessWidget {
+  final SongModel songData;
+  bool isLikedSong;
+  SearchResults({super.key, required this.songData, required this.isLikedSong});
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +17,14 @@ class _SearchResultsState extends State<SearchResults> {
         title: const Text("Here you go"),
         actions: [
           IconButton(
-              icon: _isLikedSong
+              icon: isLikedSong
                   ? const Icon(Icons.favorite)
                   : const Icon(Icons.favorite_border),
               onPressed: () {
                 showDialog(
                     context: context,
                     builder: (context) {
-                      if (_isLikedSong) {
+                      if (isLikedSong) {
                         return _createAlertDialog(
                             context,
                             "Eliminar de favoritos",
@@ -56,38 +45,26 @@ class _SearchResultsState extends State<SearchResults> {
       ),
       body: Column(children: [
         Image.network(
-            alignment: Alignment.center,
-            fit: BoxFit.cover,
-            "${_getSongImageUrl()}"),
+            alignment: Alignment.center, fit: BoxFit.cover, songData.songImage),
         Padding(
           padding: const EdgeInsets.fromLTRB(0, 40.0, 0, 30),
           child: Column(children: [
-            createText("${_songData["result"]["title"]}",
+            createText(songData.songName,
                 const TextStyle(fontSize: 26, fontWeight: FontWeight.bold)),
-            createText("${_songData["result"]["album"]}",
+            createText(songData.album,
                 const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            createText("${_songData["result"]["artist"]}",
-                const TextStyle(fontSize: 15)),
-            createText("${_songData["result"]["release_date"]}",
-                const TextStyle(fontSize: 15)),
+            createText(songData.artist, const TextStyle(fontSize: 15)),
+            createText(songData.date, const TextStyle(fontSize: 15)),
           ]),
         ),
         const Divider(
           thickness: 1,
         ),
         PlatformsList(
-          songData: _songData["result"],
+          platformData: songData.platforms,
         )
       ]),
     );
-  }
-
-  String _getSongImageUrl() {
-    if (_songData["result"].containsKey("spotify")) {
-      return _songData["result"]["spotify"]["album"]["images"][0]["url"];
-    }
-
-    return "https://media.istockphoto.com/photos/vinyl-record-picture-id134119615?k=20&m=134119615&s=612x612&w=0&h=zI6Fig1j8mbZp16CgvaDRMPHAzTaBNhhcBR0AldRXtw=";
   }
 
   AlertDialog _createAlertDialog(BuildContext context, String title,
@@ -105,13 +82,15 @@ class _SearchResultsState extends State<SearchResults> {
         TextButton(
           onPressed: () {
             if (removeSong) {
-              _isLikedSong = false;
-              setState(() {});
-              context.read<FavoritesProvider>().removeSong(_songData);
+              isLikedSong = false;
+              BlocProvider.of<FavoritesBloc>(context).add(RemoveFavoriteEvent(
+                  songToRemove: songData,
+                  uid: BlocProvider.of<AuthBloc>(context).currUser!.uid));
             } else {
-              _isLikedSong = true;
-              setState(() {});
-              context.read<FavoritesProvider>().addNewSong(_songData);
+              isLikedSong = true;
+              BlocProvider.of<FavoritesBloc>(context).add(AddFavoriteEvent(
+                  songToAdd: songData,
+                  uid: BlocProvider.of<AuthBloc>(context).currUser!.uid));
             }
             Navigator.of(context).pop();
           },

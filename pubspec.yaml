@@ -12,8 +12,6 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  flutter_dotenv:
-  provider:
   record:
   url_launcher:
   font_awesome_flutter:

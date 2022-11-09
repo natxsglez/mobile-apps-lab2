@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:244033044804:android:e9359b79569474a33b1711",
+        "mobilesdk_app_id": "1:244033044804:android:eb6df408f9d6a5f43b1711",
         "android_client_info": {
-          "package_name": "org.iteso.mx"
+          "package_name": "com.example.birds_museum"
         }
       },
       "oauth_client": [
         {
-          "client_id": "244033044804-r89k5kp7j7lv16r18lgtnfm6h7khldrv.apps.googleusercontent.com",
+          "client_id": "244033044804-00og1afu0uadnha6sb8f0b15k7dksc3c.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "org.iteso.mx",
+            "package_name": "com.example.birds_museum",
             "certificate_hash": "8113e231f85b41a82a788f5a392b1f40b15e9a0a"
           }
         },

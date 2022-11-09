@@ -1,24 +1,24 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
+import 'package:birds_museum/bloc/auth_bloc/auth_bloc.dart';
 import 'package:birds_museum/pages/fav_page/fav_list.dart';
-import 'package:birds_museum/bloc/bloc/fav_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FavoritesPage extends StatefulWidget {
+class FavoritesPage extends StatelessWidget {
   const FavoritesPage({super.key});
 
-  @override
-  State<FavoritesPage> createState() => _FavoritesPageState();
-}
-
-class _FavoritesPageState extends State<FavoritesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: context.watch<FavoritesProvider>().getFavList.isNotEmpty
-          ? FavoritesList()
+      body: BlocProvider.of<AuthBloc>(context).currUser != null ||
+              BlocProvider.of<AuthBloc>(context)
+                  .currUser!
+                  .favoriteSongs
+                  .isNotEmpty
+          ? FavoritesList(
+              favoriteSongs:
+                  BlocProvider.of<AuthBloc>(context).currUser!.favoriteSongs,
+            )
           : _createNotFavoritesYetText(),
     );
   }
@@ -29,7 +29,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             Text(
               "Aún no tienes canciones guardadas",
               textAlign: TextAlign.center,

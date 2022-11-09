@@ -21,7 +21,7 @@ class FavoritesRepository {
         .update({"favoriteSongs": user.favoriteSongs});
   }
 
-  void removeSong(SongModel song, String uid) async {
+  FutureOr<void> removeSong(SongModel song, String uid) async {
     final userData = await usersCollection.where('uid', isEqualTo: uid).get();
     final user =
         userData.docs.map((doc) => UserModel.fromMap(doc.data())).toList()[0];
