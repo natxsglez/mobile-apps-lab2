@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:birds_museum/models/collections.dart';
+import 'package:birds_museum/models/platform_model.dart';
+import 'package:birds_museum/models/song_model.dart';
 import 'package:birds_museum/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,11 +23,33 @@ class AuthRepository {
         .collection(FirebaseCollections.users)
         .where('uid', isEqualTo: me.uid)
         .get();
-    usersQuery.docs[0].data()["favoriteSongs"] =
-        log("${usersQuery.docs[0].data()}");
+    final songsRef = usersQuery.docs[0].data()["favoriteSongs"];
+    final List<SongModel> songs = [];
+
+    for (int i = 0; i < songsRef.length; i++) {
+      final List<PlatformModel> platforms = [];
+      for (int j = 0; j < songsRef[i]["platforms"].length; j++) {
+        platforms.add(PlatformModel(
+            platformName: songsRef[i]["platforms"][j]["platformName"],
+            url: songsRef[i]["platforms"][j]["url"]));
+      }
+      songs.add(SongModel(
+          songName: songsRef[i]["songName"],
+          album: songsRef[i]["album"],
+          artist: songsRef[i]["artist"],
+          date: songsRef[i]["date"],
+          songImage: songsRef[i]["songImage"],
+          platforms: platforms));
+    }
 
     return usersQuery.docs.isNotEmpty
-        ? UserModel.fromMap(usersQuery.docs[0].data())
+        ? UserModel(
+            uid: usersQuery.docs[0].data()["uid"],
+            email: usersQuery.docs[0].data()["email"],
+            firstName: usersQuery.docs[0].data()["firstName"],
+            lastName: usersQuery.docs[0].data()["lastName"],
+            displayName: usersQuery.docs[0].data()["displayName"],
+            favoriteSongs: songs)
         : null;
   }
 
@@ -58,8 +82,8 @@ class AuthRepository {
     return userDetails;
   }
 
-  Future<GoogleSignInAccount?> signOutGoogleUser() async {
-    return _googleSignIn.signOut();
+  Future<void> signOutGoogleUser() async {
+    return _authInstance.signOut();
   }
 
   Future<UserModel> _createFirestoreUser(

@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
               final UserModel? userLogged =
                   BlocProvider.of<AuthBloc>(context).currUser;
               if (userLogged != null) {
-                return const HomePage();
+                return HomePage();
               }
             }
             return const LoginPage();

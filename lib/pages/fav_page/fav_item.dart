@@ -12,30 +12,37 @@ class FavoriteItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => SearchResults(
-                    songData: favItem,
-                    isLikedSong: true,
-                  )),
-        );
-      },
-      child: Container(
-        alignment: Alignment.center,
-        padding: const EdgeInsets.all(10),
-        height: 300,
-        width: 300,
-        child: Stack(
-          children: [
-            _createImage(),
-            _createFavoriteBtn(context),
-            _createSongDetails()
-          ],
-        ),
-      ),
-    );
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => SearchResults(
+                      songData: favItem,
+                      isLikedSong: true,
+                    )),
+          );
+        },
+        child: BlocListener<FavoritesBloc, FavoritesState>(
+          listener: (context, state) {
+            if (state is AddFavoriteSuccessState ||
+                state is RemoveFavoriteEvent) {
+              BlocProvider.of<AuthBloc>(context).add(RefreshUserDataEvent());
+            }
+          },
+          child: Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.all(10),
+            height: 300,
+            width: 300,
+            child: Stack(
+              children: [
+                _createImage(),
+                _createFavoriteBtn(context),
+                _createSongDetails()
+              ],
+            ),
+          ),
+        ));
   }
 
   Positioned _createSongDetails() {

@@ -17,6 +17,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc({required this.authRepository}) : super(AuthNotLoggedInState()) {
     on<AuthEvent>(_checkLoginStatusEvent);
     on<AuthGoogleLoginEvent>(_loginWithGoogle);
+    on<AuthGoogleLogoutEvent>(_logoutWithGoogle);
+    on<RefreshUserDataEvent>(_refreshUserData);
   }
 
   FutureOr<void> _checkLoginStatusEvent(event, emit) async {
@@ -29,10 +31,28 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   FutureOr<void> _loginWithGoogle(event, emit) async {
     try {
-      final user = await authRepository.signInWithGoogle();
+      _currUser = await authRepository.signInWithGoogle();
       emit(AuthLoggedInState());
     } catch (error) {
       emit(AuthNotLoggedInState());
+    }
+  }
+
+  FutureOr<void> _logoutWithGoogle(event, emit) async {
+    try {
+      await authRepository.signOutGoogleUser();
+      _currUser = null;
+      emit(AuthLoggedOutState());
+    } catch (error) {
+      emit(AuthErrorState());
+    }
+  }
+
+  FutureOr<void> _refreshUserData(event, emit) async {
+    UserModel? user = await authRepository.getMeUser();
+    if (user != null) {
+      _currUser = user;
+      emit(AuthRefreshedState());
     }
   }
 }

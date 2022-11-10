@@ -1,20 +1,38 @@
 import 'package:birds_museum/bloc/auth_bloc/auth_bloc.dart';
 import 'package:birds_museum/bloc/favorites_bloc/favorites_bloc.dart';
 import 'package:birds_museum/models/song_model.dart';
+import 'package:birds_museum/pages/home_page/home_page.dart';
 import 'package:birds_museum/pages/search_results/platforms_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SearchResults extends StatelessWidget {
+class SearchResults extends StatefulWidget {
   final SongModel songData;
   bool isLikedSong;
   SearchResults({super.key, required this.songData, required this.isLikedSong});
 
   @override
+  State<SearchResults> createState() =>
+      _SearchResultsState(songData: songData, isLikedSong: isLikedSong);
+}
+
+class _SearchResultsState extends State<SearchResults> {
+  final SongModel songData;
+  bool isLikedSong;
+
+  _SearchResultsState({required this.songData, required this.isLikedSong});
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Here you go"),
+        leading: IconButton(
+          icon: Icon(Icons.navigate_before),
+          onPressed: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => HomePage()));
+          },
+        ),
         actions: [
           IconButton(
               icon: isLikedSong
@@ -41,6 +59,15 @@ class SearchResults extends StatelessWidget {
                       }
                     });
               }),
+          BlocListener<FavoritesBloc, FavoritesState>(
+            listener: (context, state) {
+              if (state is AddFavoriteSuccessState ||
+                  state is RemoveFavoriteEvent) {
+                BlocProvider.of<AuthBloc>(context).add(RefreshUserDataEvent());
+              }
+            },
+            child: Container(),
+          )
         ],
       ),
       body: Column(children: [
@@ -83,11 +110,13 @@ class SearchResults extends StatelessWidget {
           onPressed: () {
             if (removeSong) {
               isLikedSong = false;
+              setState(() {});
               BlocProvider.of<FavoritesBloc>(context).add(RemoveFavoriteEvent(
                   songToRemove: songData,
                   uid: BlocProvider.of<AuthBloc>(context).currUser!.uid));
             } else {
               isLikedSong = true;
+              setState(() {});
               BlocProvider.of<FavoritesBloc>(context).add(AddFavoriteEvent(
                   songToAdd: songData,
                   uid: BlocProvider.of<AuthBloc>(context).currUser!.uid));

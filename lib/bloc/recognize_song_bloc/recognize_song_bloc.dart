@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:birds_museum/bloc/recognize_song_bloc/recognize_song_repository.dart';
 import 'package:birds_museum/models/song_model.dart';
@@ -16,14 +17,14 @@ class RecognizeSongBloc extends Bloc<RecognizeSongEvent, RecognizeSongState> {
   RecognizeSongBloc({required recognizeSongRepository})
       : _recognizeSongRepository = recognizeSongRepository,
         super(RecognizeSongInitialState()) {
-    on<RecognizeSongEvent>((event, emit) {
-      on<DoRecognizeSongEvent>(_recognizeSongHandler);
-    });
+    on<DoRecognizeSongEvent>(_recognizeSongHandler);
   }
 
   FutureOr<void> _recognizeSongHandler(event, emit) async {
+    log("recognizing");
     try {
       _song = await _recognizeSongRepository.recognizeSong(event.songPath);
+      log("$_song");
       emit(RecognizeSongSuccessfulState());
     } catch (error) {
       emit(RecognizeSongErrorState());

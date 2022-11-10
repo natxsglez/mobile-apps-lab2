@@ -15,9 +15,7 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
   RecordBloc({required recordRepository})
       : _recordRepository = recordRepository,
         super(RecordInitialState()) {
-    on<RecordEvent>((event, emit) {
-      on<RecordEvent>(_recordHandler);
-    });
+    on<StartRecordingEvent>(_recordHandler);
   }
 
   FutureOr<void> _recordHandler(event, emit) async {

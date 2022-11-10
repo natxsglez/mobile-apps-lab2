@@ -14,15 +14,13 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   FavoritesBloc({required favoritesRepository})
       : _favoritesRepository = favoritesRepository,
         super(FavoritesInitialState()) {
-    on<FavoritesEvent>((event, emit) {
-      on<AddFavoriteEvent>(_addSongHandler);
-      on<RemoveFavoriteEvent>(_removeSongHandler);
-    });
+    on<AddFavoriteEvent>(_addSongHandler);
+    on<RemoveFavoriteEvent>(_removeSongHandler);
   }
 
   FutureOr<void> _addSongHandler(event, emit) async {
     try {
-      await _favoritesRepository.addSong(event.song, event.uid);
+      await _favoritesRepository.addSong(event.songToAdd, event.uid);
       emit(AddFavoriteSuccessState());
     } catch (error) {
       emit(AddFavoriteErrorState());
@@ -31,7 +29,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
 
   FutureOr<void> _removeSongHandler(event, emit) async {
     try {
-      await _favoritesRepository.removeSong(event.song, event.uid);
+      await _favoritesRepository.removeSong(event.songToRemove, event.uid);
       emit(RemoveFavoriteSuccessState());
     } catch (error) {
       emit(RemoveFavoriteErrorState());
