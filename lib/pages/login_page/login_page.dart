@@ -47,15 +47,6 @@ class LoginPage extends StatelessWidget {
               ),
             ),
           ),
-          BlocListener<AuthBloc, AuthState>(
-            listener: (context, state) {
-              if (state is AuthLoggedInState) {
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) => HomePage()));
-              }
-            },
-            child: Container(),
-          ),
         ],
       ),
     );

@@ -69,7 +69,8 @@ class _HomePageState extends State<HomePage> {
           ),
           BlocListener<AuthBloc, AuthState>(
             listener: (context, state) {
-              if (state is AuthLoggedOutState) {
+              if (state is AuthLoggedOutState ||
+                  state is AuthNotLoggedInState) {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const LoginPage()));
               }

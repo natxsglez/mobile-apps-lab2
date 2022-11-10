@@ -27,7 +27,7 @@ class _SearchResultsState extends State<SearchResults> {
       appBar: AppBar(
         title: const Text("Here you go"),
         leading: IconButton(
-          icon: Icon(Icons.navigate_before),
+          icon: const Icon(Icons.navigate_before),
           onPressed: () {
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => HomePage()));
@@ -62,7 +62,7 @@ class _SearchResultsState extends State<SearchResults> {
           BlocListener<FavoritesBloc, FavoritesState>(
             listener: (context, state) {
               if (state is AddFavoriteSuccessState ||
-                  state is RemoveFavoriteEvent) {
+                  state is RemoveFavoriteSuccessState) {
                 BlocProvider.of<AuthBloc>(context).add(RefreshUserDataEvent());
               }
             },

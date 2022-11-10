@@ -72,11 +72,10 @@ class MyApp extends StatelessWidget {
           },
           builder: (context, state) {
             if (state is AuthLoggedInState) {
-              final UserModel? userLogged =
-                  BlocProvider.of<AuthBloc>(context).currUser;
-              if (userLogged != null) {
-                return HomePage();
-              }
+              return HomePage();
+            }
+            if (state is AuthLoggedOutState || state is AuthNotLoggedInState) {
+              return const LoginPage();
             }
             return const LoginPage();
           },

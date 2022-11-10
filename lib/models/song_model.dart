@@ -6,6 +6,7 @@ class SongModel {
   final String artist;
   final String date;
   final String songImage;
+  final String songLink;
   final List<PlatformModel> platforms;
 
   SongModel(
@@ -14,6 +15,7 @@ class SongModel {
       required this.artist,
       required this.date,
       required this.songImage,
+      required this.songLink,
       required this.platforms});
 
   SongModel.fromMap(Map<String, dynamic> item)
@@ -22,5 +24,6 @@ class SongModel {
         artist = item['artist'],
         date = item['date'],
         songImage = item['songImage'],
+        songLink = item['songLink'],
         platforms = item['platforms'];
 }

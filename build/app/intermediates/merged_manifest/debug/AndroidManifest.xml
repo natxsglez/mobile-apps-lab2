@@ -44,7 +44,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="MusicFindApp"
         android:requestLegacyExternalStorage="true"
-        android:supportsRtl="true" >
+        android:supportsRtl="true"
+        android:usesCleartextTraffic="true" >
         <activity
             android:name="com.example.birds_museum.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

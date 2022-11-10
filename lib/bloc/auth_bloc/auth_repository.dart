@@ -39,6 +39,7 @@ class AuthRepository {
           artist: songsRef[i]["artist"],
           date: songsRef[i]["date"],
           songImage: songsRef[i]["songImage"],
+          songLink: songsRef[i]["songLink"],
           platforms: platforms));
     }
 
@@ -127,6 +128,33 @@ class AuthRepository {
     if (docData == null) {
       return null;
     }
-    return UserModel.fromMap(docData);
+
+    final songsRef = docData["favoriteSongs"];
+    final List<SongModel> songs = [];
+
+    for (int i = 0; i < songsRef.length; i++) {
+      final List<PlatformModel> platforms = [];
+      for (int j = 0; j < songsRef[i]["platforms"].length; j++) {
+        platforms.add(PlatformModel(
+            platformName: songsRef[i]["platforms"][j]["platformName"],
+            url: songsRef[i]["platforms"][j]["url"]));
+      }
+      songs.add(SongModel(
+          songName: songsRef[i]["songName"],
+          album: songsRef[i]["album"],
+          artist: songsRef[i]["artist"],
+          date: songsRef[i]["date"],
+          songLink: songsRef[i]["songLink"],
+          songImage: songsRef[i]["songImage"],
+          platforms: platforms));
+    }
+
+    return UserModel(
+        uid: docData["uid"],
+        email: docData["email"],
+        firstName: docData["firstName"],
+        lastName: docData["lastName"],
+        displayName: docData["displayName"],
+        favoriteSongs: songs);
   }
 }

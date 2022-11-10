@@ -14,7 +14,7 @@ class RecognizeSongRepository {
     String songFileConvertedToBase64 = _convertFiletoBase64String(songFile);
     Map<String, dynamic> recognizedSong =
         await _doRecognition(songFileConvertedToBase64);
-    log("song recognized");
+    log("${recognizedSong["result"]}");
     if (recognizedSong["result"] == null) {
       throw ("Song could not be recognized");
     }
@@ -23,6 +23,7 @@ class RecognizeSongRepository {
         album: recognizedSong["result"]["album"],
         artist: recognizedSong["result"]["artist"],
         date: recognizedSong["result"]["release_date"],
+        songLink: recognizedSong["result"]["song_link"],
         songImage: recognizedSong["result"]["spotify"]["album"]["images"][0]
                 ["url"] ??
             "https://media.istockphoto.com/photos/vinyl-record-picture-id134119615?k=20&m=134119615&s=612x612&w=0&h=zI6Fig1j8mbZp16CgvaDRMPHAzTaBNhhcBR0AldRXtw=",

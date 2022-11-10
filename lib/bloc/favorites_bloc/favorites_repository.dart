@@ -28,6 +28,7 @@ class FavoritesRepository {
       "artist": song.artist,
       "date": song.date,
       "songImage": song.songImage,
+      "songLink": song.songLink,
       "platforms": songPlatforms
     });
     await usersCollection.doc(uid).update({"favoriteSongs": songsRef});

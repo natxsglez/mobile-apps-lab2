@@ -4,6 +4,7 @@ import 'package:birds_museum/models/song_model.dart';
 import 'package:birds_museum/pages/search_results/search_results.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FavoriteItem extends StatelessWidget {
   final SongModel favItem;
@@ -74,41 +75,25 @@ class FavoriteItem extends StatelessWidget {
     );
   }
 
-  Padding _createFavoriteBtn(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: IconButton(
-          icon: const Icon(Icons.favorite),
-          onPressed: () => showDialog(
-                context: context,
-                builder: (context) => _createDeleteAlertDialog(context),
-              )),
-    );
+  void _launchUrl(String url) async {
+    Uri parsedUrl = Uri.parse(url);
+    if (!await canLaunchUrl(parsedUrl)) {
+      throw 'Could not launch $url';
+    } else {
+      launchUrl(
+        parsedUrl,
+        mode: LaunchMode.externalApplication,
+      );
+    }
   }
 
-  AlertDialog _createDeleteAlertDialog(BuildContext context) {
-    return AlertDialog(
-      title: const Text("Eliminar de favoritos"),
-      content: const Text(
-          "El elemento será eliminado de tus favoritos ¿Quieres continuar?"),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          child: const Text("Cancelar"),
-        ),
-        TextButton(
-          onPressed: () {
-            BlocProvider.of<FavoritesBloc>(context).add(RemoveFavoriteEvent(
-                songToRemove: favItem,
-                uid: BlocProvider.of<AuthBloc>(context).currUser!.uid));
-            Navigator.of(context).pop();
-          },
-          child: const Text("Eliminar"),
-        )
-      ],
-    );
+  Padding _createFavoriteBtn(BuildContext context) {
+    return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: IconButton(
+          icon: const Icon(Icons.favorite),
+          onPressed: () => _launchUrl(favItem.songLink),
+        ));
   }
 
   ClipRRect _createImage() {

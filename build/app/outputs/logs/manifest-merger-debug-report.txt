@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 application
-INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:8:4-39:19
+INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:8:4-40:19
 MERGED from [:firebase_database] C:\Users\natal\Documents\mobile-apps-lab2\build\firebase_database\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-15:19
 MERGED from [:firebase_database] C:\Users\natal\Documents\mobile-apps-lab2\build\firebase_database\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-15:19
 MERGED from [:cloud_firestore] C:\Users\natal\Documents\mobile-apps-lab2\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-15:19
@@ -68,11 +68,11 @@ MERGED from [com.android.installreferrer:installreferrer:1.0] C:\Users\natal\.gr
 	android:name
 		INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml
 manifest
-ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:1-47:12
-INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:1-47:12
-INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:1-47:12
-INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:1-47:12
-MERGED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:1-47:12
+ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:1-48:12
+INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:1-48:12
+INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:1-48:12
+INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:1-48:12
+MERGED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:1-48:12
 MERGED from [:sign_in_with_apple] C:\Users\natal\Documents\mobile-apps-lab2\build\sign_in_with_apple\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-9:12
 MERGED from [:firebase_database] C:\Users\natal\Documents\mobile-apps-lab2\build\firebase_database\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-17:12
 MERGED from [:cloud_firestore] C:\Users\natal\Documents\mobile-apps-lab2\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:2:1-17:12
@@ -161,11 +161,11 @@ INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\debug\An
 		INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\debug\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:1-47:12
+		ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:1-48:12
 		INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\debug\AndroidManifest.xml
 	android:versionCode
 		INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:1-47:12
+		ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:1-48:12
 		INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\debug\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:1:11-69
@@ -188,21 +188,21 @@ ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\Androi
 	android:name
 		ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:7:18-73
 queries
-ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:40:5-46:11
+ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:41:5-47:11
 MERGED from [:twitter_login] C:\Users\natal\Documents\mobile-apps-lab2\build\twitter_login\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-13:15
 MERGED from [:twitter_login] C:\Users\natal\Documents\mobile-apps-lab2\build\twitter_login\intermediates\merged_manifest\debug\AndroidManifest.xml:9:5-13:15
 MERGED from [com.facebook.android:facebook-common:14.1.1] C:\Users\natal\.gradle\caches\transforms-3\374dfd5041a2c5cc2fe6c05a67bbd1ef\transformed\jetified-facebook-common-14.1.1\AndroidManifest.xml:29:5-31:15
 MERGED from [com.facebook.android:facebook-common:14.1.1] C:\Users\natal\.gradle\caches\transforms-3\374dfd5041a2c5cc2fe6c05a67bbd1ef\transformed\jetified-facebook-common-14.1.1\AndroidManifest.xml:29:5-31:15
 intent#action:name:android.intent.action.VIEW+data:scheme:https
-ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:42:3-45:12
+ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:43:3-46:12
 action#android.intent.action.VIEW
-ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:43:5-57
+ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:44:5-57
 	android:name
-		ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:43:13-54
+		ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:44:13-54
 data
-ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:44:5-36
+ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:45:5-36
 	android:scheme
-		ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:44:11-33
+		ADDED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml:45:11-33
 uses-sdk
 INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\natal\Documents\mobile-apps-lab2\android\app\src\main\AndroidManifest.xml
