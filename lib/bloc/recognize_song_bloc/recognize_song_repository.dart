@@ -4,11 +4,10 @@ import 'dart:typed_data';
 
 import 'package:birds_museum/models/song_model.dart';
 import 'package:birds_museum/models/platform_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import '../../credentials.dart' as credentials;
 
-class RecognizeSongRepository with ChangeNotifier {
+class RecognizeSongRepository {
   Future<SongModel> recognizeSong(String songPath) async {
     File songFile = File(songPath);
     String songFileConvertedToBase64 = _convertFiletoBase64String(songFile);

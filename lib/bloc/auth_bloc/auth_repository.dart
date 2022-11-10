@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:birds_museum/models/collections.dart';
 import 'package:birds_museum/models/user_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,6 +11,23 @@ class AuthRepository {
   final FirebaseAuth _authInstance = FirebaseAuth.instance;
 
   bool get isLoggedIn => _authInstance.currentUser != null;
+
+  Future<UserModel?> getMeUser() async {
+    User? me = FirebaseAuth.instance.currentUser;
+    if (me == null) {
+      return null;
+    }
+    final usersQuery = await FirebaseFirestore.instance
+        .collection(FirebaseCollections.users)
+        .where('uid', isEqualTo: me.uid)
+        .get();
+    usersQuery.docs[0].data()["favoriteSongs"] =
+        log("${usersQuery.docs[0].data()}");
+
+    return usersQuery.docs.isNotEmpty
+        ? UserModel.fromMap(usersQuery.docs[0].data())
+        : null;
+  }
 
   Future<UserModel> signInWithGoogle() async {
     final GoogleSignInAccount? googleSignInAccount =
