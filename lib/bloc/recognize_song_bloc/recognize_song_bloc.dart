@@ -21,10 +21,8 @@ class RecognizeSongBloc extends Bloc<RecognizeSongEvent, RecognizeSongState> {
   }
 
   FutureOr<void> _recognizeSongHandler(event, emit) async {
-    log("recognizing");
     try {
       _song = await _recognizeSongRepository.recognizeSong(event.songPath);
-      log("$_song");
       emit(RecognizeSongSuccessfulState());
     } catch (error) {
       emit(RecognizeSongErrorState());

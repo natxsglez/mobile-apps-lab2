@@ -14,7 +14,6 @@ class RecognizeSongRepository {
     String songFileConvertedToBase64 = _convertFiletoBase64String(songFile);
     Map<String, dynamic> recognizedSong =
         await _doRecognition(songFileConvertedToBase64);
-    log("${recognizedSong["result"]}");
     if (recognizedSong["result"] == null) {
       throw ("Song could not be recognized");
     }
